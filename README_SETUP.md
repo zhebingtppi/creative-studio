@@ -1,3 +1,11 @@
+# CREATIVE STUDIO — FUNCTIONAL V6
+
+V6 changes:
+- 右上/画面上の同期ステータスバッジを非表示にしました。
+- 自動同期そのものは引き続き動作します。
+- 同期状態や手動操作は SETTINGS > クラウド同期 から確認できます。
+- PWAキャッシュをV6へ更新しました。
+
 # CREATIVE STUDIO — PC / iPhone 同期版
 
 このフォルダは、既存のCREATIVE STUDIO V39をベースに、次を追加した実用版の土台です。
