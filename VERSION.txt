@@ -1,0 +1,4 @@
+CREATIVE STUDIO V8
+- Configurable Today priority rules
+- Notification preferences
+- Timer preferences and safer task switching
