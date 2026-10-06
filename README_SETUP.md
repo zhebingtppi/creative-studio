@@ -68,3 +68,10 @@ RLSが自分のデータを保護します。
 - オフライン時はローカル保存し、再接続時に自動送信
 - アプリへ戻った時と30秒ごとにクラウドの更新を確認
 - 右下の同期表示で「変更あり / 保存中 / 保存済 / 未同期」を確認できます。
+
+
+## V7 functional bundle
+- smarter NOW task ranking
+- deadline / long-session notification foundation
+- widget-ready snapshot contract
+- existing auto-sync / conflict protection retained
