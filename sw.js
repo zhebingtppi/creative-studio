@@ -1,4 +1,4 @@
-const CACHE='creative-studio-v1';
+const CACHE='creative-studio-v3';
 const ASSETS=['./','./index.html','./config.js','./cloud-sync.js','./manifest.webmanifest','./icon-192.png','./icon-512.png'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).catch(()=>{})));
 self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));

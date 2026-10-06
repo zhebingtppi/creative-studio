@@ -269,6 +269,45 @@ body{font-family:"Helvetica Neue",Arial,"Noto Sans JP","Hiragino Kaku Gothic Pro
 .cloud-dot{width:8px;height:8px;border-radius:50%;background:#aaa}.cloud-fab.online .cloud-dot{background:#218b4b}.cloud-fab.syncing .cloud-dot{background:#d09b00}
 .cloud-user{font-size:10px;color:var(--muted);margin-top:8px;word-break:break-all}.cloud-actions{display:flex;flex-wrap:wrap;gap:8px}.cloud-help{font-size:10px;color:var(--muted);line-height:1.6;margin-top:10px}
 @media(max-width:780px){.cloud-fab{top:auto;bottom:18px;right:18px;padding:8px 10px;font-size:11px}}
+
+/* =========================================================
+   V40 — MOBILE APP SHELL
+   iPhone-first bottom navigation + quick create sheet
+   ========================================================= */
+.mobile-tabbar,.mobile-create-sheet{display:none}
+.mobile-tabbar{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));height:66px;z-index:120;background:rgba(25,26,30,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:7px 8px;box-shadow:0 14px 34px rgba(0,0,0,.22);grid-template-columns:1fr 1fr 66px 1fr 1fr;gap:3px}
+.mobile-tabbar button{border:0;background:transparent;color:#bbbcc3;border-radius:15px;font-size:9px;font-weight:900;letter-spacing:.03em;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:0}
+.mobile-tabbar button .tab-icon{font-size:19px;line-height:1}
+.mobile-tabbar button.active{background:#fff;color:#20212b}
+.mobile-tabbar .mobile-create{width:56px;height:56px;align-self:center;justify-self:center;border-radius:18px;background:var(--yellow);color:#20212b;border:1.5px solid #111;box-shadow:3px 3px 0 #111;font-size:28px;transform:translateY(-12px)}
+.mobile-create-sheet{position:fixed;inset:0;z-index:180;background:rgba(14,15,18,.32);align-items:flex-end;padding:12px 12px calc(88px + env(safe-area-inset-bottom))}
+.mobile-create-sheet.open{display:flex}
+.mobile-sheet-card{width:100%;background:#fffdfa;border:1px solid #cfc9bd;border-radius:24px;padding:18px;box-shadow:0 24px 55px rgba(0,0,0,.28)}
+.mobile-sheet-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}.mobile-sheet-head b{font-size:18px}.mobile-sheet-close{border:0;background:#eee9df;border-radius:999px;width:34px;height:34px;font-weight:950}
+.mobile-create-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mobile-create-action{border:1px solid #d8d2c7;background:#fff;border-radius:16px;padding:16px 13px;text-align:left;font-weight:900;min-height:82px}.mobile-create-action strong{display:block;font-size:14px;margin-top:7px}.mobile-create-action span{font-size:10px;color:var(--muted);font-weight:700}.mobile-create-action.primary{background:var(--yellow);border-color:#20212b}
+@media(max-width:780px){
+ body{padding-bottom:calc(88px + env(safe-area-inset-bottom));-webkit-tap-highlight-color:transparent}
+ .side{display:none!important}.app{display:block!important}.main{padding:18px 14px calc(112px + env(safe-area-inset-bottom))!important}
+ .mobile-tabbar{display:grid}
+ .cloud-fab{bottom:calc(91px + env(safe-area-inset-bottom))!important;right:14px!important;top:auto!important;padding:7px 9px!important;font-size:9px!important;box-shadow:2px 2px 0 var(--ink)!important}
+ .focusbar{bottom:calc(88px + env(safe-area-inset-bottom))!important;left:10px!important;right:10px!important;width:auto!important;border-radius:18px!important}
+ .home-hero{min-height:338px!important;padding-bottom:28px!important}.physics-stage{top:64px!important;border-radius:20px!important}
+ .hero-kicker{padding-left:5px!important}.hero-clock{top:4px!important;right:4px!important}.clock-time{font-size:35px!important}.clock-date{font-size:7px!important;margin-top:5px!important}
+ .hero-grid{display:grid!important;grid-template-columns:minmax(0,1fr) 104px!important;align-items:end!important;gap:12px!important;margin-top:104px!important;padding:0 14px 0 7px!important}.hero-grid>div+div{margin-top:0!important}
+ .hero-number{font-size:94px!important}.active-number{font-size:45px!important}.hero-caption{font-size:7px!important}.stat-label{font-size:8px!important}.hero-rule{margin:8px 0 8px!important;width:38px!important}
+ .hero-note{right:12px!important;top:74px!important}.home-message{font-size:8px!important;padding:7px 10px!important}.physics-meta{display:none!important}.hero-watermark{display:none!important}
+ .section{margin-top:34px!important}.section-head{margin-bottom:17px!important;padding-bottom:8px!important}.section h2{font-size:23px!important}.section-head .notice{display:none!important}
+ .task-list{gap:18px!important;padding-top:0!important}.creative-card-shell{margin-top:8px!important}.creative-card{grid-template-columns:70px minmax(0,1fr)!important;gap:12px!important;min-height:130px!important;padding:23px 13px 14px 12px!important;border-radius:18px!important}.task-name{font-size:18px!important}.task-context{font-size:9px!important}.task-client{font-size:7px!important}.task-actions{grid-column:1/-1!important;padding-left:70px!important;gap:6px!important}.task-actions .btn{min-height:38px}.due-corner{width:78px!important;height:68px!important}.due-corner-inner{left:9px!important;bottom:8px!important}
+ .quick-list{gap:10px!important}.quick-card{border-radius:16px!important}.quick-add{grid-template-columns:1fr!important;gap:8px!important}.quick-add input,.quick-add select,.quick-add button{min-height:44px}
+ .top{align-items:flex-start!important;gap:12px!important;margin-bottom:18px!important}.top .title{font-size:30px!important}.top .sub{font-size:10px!important;line-height:1.5}.top>.btn{white-space:nowrap;padding:9px 10px!important;font-size:10px!important}
+ .projects{grid-template-columns:1fr!important;gap:18px!important}.project-card{padding:24px 16px 18px 25px!important;border-radius:18px!important}.project-name{font-size:21px!important}.project-meta{margin-top:10px!important}.project-progress{margin-top:13px!important}
+ .detail-layout{grid-template-columns:1fr!important}.sticky{position:static!important}.deliverable-tabs{overflow-x:auto;flex-wrap:nowrap!important;scrollbar-width:none}.deliverable-tabs::-webkit-scrollbar{display:none}
+ .calendar-shell{overflow-x:auto;-webkit-overflow-scrolling:touch}.cal-head,#calWeeks{min-width:720px}.cal-nav{display:flex;flex-wrap:wrap;gap:6px!important}.cal-month{width:100%;order:-1}
+ .templates,.archive-list,.settings-wrap{grid-template-columns:1fr!important;gap:14px!important}.filters{grid-template-columns:1fr!important;gap:8px!important}
+ .modal{padding:10px!important;align-items:flex-end!important}.modalbox{width:100%!important;max-height:88vh!important;overflow:auto!important;border-radius:24px 24px 16px 16px!important;padding:18px!important}.modalbox.small{max-width:none!important}
+ input,select,textarea{font-size:16px!important}
+}
+
 </style>
 </head>
 <body>
@@ -283,7 +322,7 @@ body{font-family:"Helvetica Neue",Arial,"Noto Sans JP","Hiragino Kaku Gothic Pro
       <button data-page="archive">▤ ARCHIVE</button>
       <button data-page="settings">⚙ SETTINGS</button>
     </nav>
-    <div class="ver">REBUILD · V39</div>
+    <div class="ver">REBUILD · V40</div>
   </aside>
   <main class="main">
     <section id="home" class="page active">
@@ -313,6 +352,26 @@ body{font-family:"Helvetica Neue",Arial,"Noto Sans JP","Hiragino Kaku Gothic Pro
 
     <section id="settings" class="page"><div class="top"><div><div class="eyebrow">WORKSPACE</div><div class="title">SETTINGS</div><div class="sub">この場所を、自分のスタジオに。</div></div></div><div class="settings-wrap"><div class="settings-card"><label>WORKSPACE NAME<input id="workspaceInput"></label><div class="notice" style="margin:9px 0 12px">サイドバーとHOMEへ即反映します。</div><button class="btn primary" id="saveWorkspaceBtn">SAVE NAME</button></div><div class="settings-card"><label>言語 / LANGUAGE<select id="languageSelect"><option value="ja">日本語</option><option value="en">English</option></select></label><div class="notice" id="languageNotice" style="margin-top:9px">判断・操作・重要情報を選択した言語で表示します。</div></div><div class="settings-card"><b>DATA</b><div class="meta" style="margin:8px 0 12px">ローカル保存中。V31の保存データがあれば初回だけ移行します。</div><button class="btn small" id="exportBtn">EXPORT JSON</button> <button class="btn small" id="resetBtn">DEMO RESET</button></div><div class="settings-card"><b>クラウド同期</b><div id="cloudSettingsStatus" class="meta" style="margin:8px 0 12px">未設定</div><div class="cloud-actions"><button class="btn small primary" id="cloudLoginOpenBtn">ログイン / 設定</button><button class="btn small" id="cloudPullBtn">クラウドから読み込む</button><button class="btn small" id="cloudPushBtn">今すぐ保存</button><button class="btn small hidden" id="cloudLogoutBtn">ログアウト</button></div><div class="cloud-help">Supabaseを設定すると、PCとiPhoneで同じデータを自動同期します。ローカル保存もバックアップとして残ります。</div></div><div class="settings-card"><b>TRASH</b><div id="trashList" class="meta" style="margin-top:8px"></div></div></div></section>
   </main>
+</div>
+
+
+<nav class="mobile-tabbar" id="mobileTabbar" aria-label="モバイルナビゲーション">
+  <button class="active" data-page="home"><span class="tab-icon">⌂</span><span>ホーム</span></button>
+  <button data-page="projects"><span class="tab-icon">▦</span><span>案件</span></button>
+  <button class="mobile-create" id="mobileCreateBtn" type="button" aria-label="新規作成">＋</button>
+  <button data-page="calendar"><span class="tab-icon">□</span><span>予定</span></button>
+  <button data-page="settings"><span class="tab-icon">⚙</span><span>設定</span></button>
+</nav>
+<div class="mobile-create-sheet" id="mobileCreateSheet" aria-hidden="true">
+  <div class="mobile-sheet-card">
+    <div class="mobile-sheet-head"><b>新しく作る</b><button class="mobile-sheet-close" id="mobileCreateClose" type="button">×</button></div>
+    <div class="mobile-create-grid">
+      <button class="mobile-create-action primary" data-mobile-create="project" type="button">✦<strong>案件を作る</strong><span>新しい制作案件を登録</span></button>
+      <button class="mobile-create-action" data-mobile-create="quick" type="button">⚡<strong>クイックタスク</strong><span>すぐ終わる用事を追加</span></button>
+      <button class="mobile-create-action" data-mobile-create="schedule" type="button">□<strong>予定を入れる</strong><span>カレンダーへ追加</span></button>
+      <button class="mobile-create-action" data-mobile-create="template" type="button">◇<strong>制作フロー</strong><span>テンプレートを追加</span></button>
+    </div>
+  </div>
 </div>
 
 <button id="cloudFab" class="cloud-fab offline" type="button"><span class="cloud-dot"></span><span id="cloudFabLabel">ローカル</span></button>
@@ -446,7 +505,7 @@ function repeatAppliesToday(q){if(!q.repeat)return true;const n=new Date(),day=[
 function quickDoneToday(q){return q.completedAt===todayISO()}
 function visibleQuick(){const today=todayISO();return state.quick.filter(q=>{if(q.repeat)return repeatAppliesToday(q);return !q.completedAt||q.completedAt===today}).sort((a,b)=>{const ad=quickDoneToday(a),bd=quickDoneToday(b);if(ad!==bd)return ad?1:-1;const ao=a.due&&a.due<today,bo=b.due&&b.due<today;if(ao!==bo)return ao?-1:1;return (a.due||'9999').localeCompare(b.due||'9999')})}
 
-function go(page){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(page).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const fn={home:renderHome,projects:renderProjects,calendar:renderCalendar,templates:renderTemplates,archive:renderArchive,settings:renderSettings,detail:renderDetail}[page];if(fn)fn();window.scrollTo(0,0)}
+function go(page){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));$(page).classList.add('active');document.querySelectorAll('.nav button,.mobile-tabbar [data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));const fn={home:renderHome,projects:renderProjects,calendar:renderCalendar,templates:renderTemplates,archive:renderArchive,settings:renderSettings,detail:renderDetail}[page];if(fn)fn();window.scrollTo(0,0)}
 function openModal(id){$(id).classList.add('show')}function closeModal(id){$(id).classList.remove('show')}
 function updateClock(){const n=new Date(),h=n.getHours(),m=String(n.getMinutes()).padStart(2,'0'),en=state.language==='en';$('clockTime').textContent=en?`${String(h).padStart(2,'0')}:${m}`:`${h}時${m}分`;$('clockDate').textContent=n.toLocaleDateString(en?'en-US':'ja-JP',en?{year:'numeric',month:'short',day:'2-digit',weekday:'short'}:{year:'numeric',month:'long',day:'numeric',weekday:'short'});$('hello').textContent=`${h<12?'GOOD MORNING':h<18?'GOOD AFTERNOON':'GOOD EVENING'}, ${state.workspace}.`;if(state.focus?.running){$('focusTime').textContent=fmtTime(focusElapsed())}}
 
@@ -540,6 +599,11 @@ function editWhy(pid,di){const d=projectById(pid)?.deliverables[di];if(!d)return
 
 function addQuick(){const text=$('qText').value.trim();if(!text)return;const repeat=$('qRepeat').value;state.quick.push({id:Date.now(),text,due:$('qDue').value,repeat,repeatAnchor:repeat==='毎週'?new Date().getDay():repeat==='毎月'?new Date().getDate():null,completedAt:null});$('qText').value='';$('qDue').value='';$('qRepeat').value='';save();renderQuick()}
 function toggleQuick(id){const q=state.quick.find(q=>q.id===Number(id));if(!q)return;q.completedAt=quickDoneToday(q)?null:todayISO();save();renderQuick()}
+
+function openMobileCreate(){const sh=$('mobileCreateSheet');if(!sh)return;sh.classList.add('open');sh.setAttribute('aria-hidden','false')}
+function closeMobileCreate(){const sh=$('mobileCreateSheet');if(!sh)return;sh.classList.remove('open');sh.setAttribute('aria-hidden','true')}
+function mobileQuickCreate(){closeMobileCreate();go('home');setTimeout(()=>{const el=$('qText');if(el){el.focus();el.scrollIntoView({behavior:'smooth',block:'center'})}},80)}
+
 function openQuick(id){const q=state.quick.find(q=>q.id===Number(id));if(!q)return;$('qeId').value=q.id;$('qeText').value=q.text;$('qeDue').value=q.due||'';$('qeRepeat').value=q.repeat||'';openModal('quickModal')}
 function saveQuickEdit(){const q=state.quick.find(q=>q.id===Number($('qeId').value));if(!q)return;q.text=$('qeText').value.trim();q.due=$('qeDue').value;const nr=$('qeRepeat').value;if(nr!==q.repeat){q.repeatAnchor=nr==='毎週'?new Date().getDay():nr==='毎月'?new Date().getDate():null}q.repeat=nr;save();closeModal('quickModal');renderQuick()}
 function deleteQuick(){const id=Number($('qeId').value);state.quick=state.quick.filter(q=>q.id!==id);save();closeModal('quickModal');renderQuick()}
@@ -646,6 +710,7 @@ document.addEventListener('drop',e=>{const step=e.target.closest('[data-dropstep
 document.addEventListener('dblclick',e=>{const day=e.target.closest('[data-caldate]');if(day)openSchedule(null,null,day.dataset.caldate)});
 
 $('quickAddBtn').onclick=addQuick;$('newProjectBtn').onclick=()=>openProjectModal();$('backProjectsBtn').onclick=()=>go('projects');$('editProjectBtn').onclick=()=>openProjectModal(currentProject);$('saveProjectBtn').onclick=saveProject;$('trashProjectBtn').onclick=trashCurrentProject;$('saveDeliverableBtn').onclick=saveDeliverable;$('saveStepBtn').onclick=saveStep;$('saveQuickBtn').onclick=saveQuickEdit;$('deleteQuickBtn').onclick=deleteQuick;$('focusStopBtn').onclick=stopFocus;$('focusCompleteBtn').onclick=completeFocus;$('focusProjectBtn').onclick=()=>{if(state.focus)openProject(state.focus.pid,state.focus.di)};$('prevMonthBtn').onclick=()=>shiftMonth(-1);$('nextMonthBtn').onclick=()=>shiftMonth(1);$('todayBtn').onclick=calendarToday;$('newScheduleBtn').onclick=()=>openSchedule();$('saveScheduleBtn').onclick=saveSchedule;$('deleteScheduleBtn').onclick=deleteSchedule;$('newTemplateBtn').onclick=()=>openTemplate();$('saveTemplateBtn').onclick=saveTemplate;$('deleteTemplateBtn').onclick=deleteTemplate;$('archiveSearch').oninput=renderArchive;$('archiveType').onchange=renderArchive;$('archiveSort').onchange=renderArchive;$('archiveView').onchange=renderArchive;$('saveWorkspaceBtn').onclick=saveWorkspace;$('exportBtn').onclick=exportJSON;$('resetBtn').onclick=resetDemo;$('saveFileBtn').onclick=()=>saveFile(fileProjectId,fileDeliverableIndex);
+$('mobileCreateBtn')?.addEventListener('click',openMobileCreate);$('mobileCreateClose')?.addEventListener('click',closeMobileCreate);$('mobileCreateSheet')?.addEventListener('click',e=>{if(e.target===$('mobileCreateSheet'))closeMobileCreate()});document.querySelectorAll('[data-mobile-create]').forEach(b=>b.addEventListener('click',()=>{const a=b.dataset.mobileCreate;if(a==='project'){closeMobileCreate();openProjectModal()}else if(a==='quick'){mobileQuickCreate()}else if(a==='schedule'){closeMobileCreate();openSchedule()}else if(a==='template'){closeMobileCreate();openTemplate()}}));
 $('newColorPicks').innerHTML=COLORS.map(c=>`<span class="swatch" style="background:${c}" data-color="${c}"></span>`).join('');$('newColorPicks').onclick=e=>{const sw=e.target.closest('[data-color]');if(sw)$('pColor').value=sw.dataset.color};
 setInterval(updateClock,1000);setInterval(renderFocus,1000);
 syncAutoStatuses();save();
