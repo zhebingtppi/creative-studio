@@ -3,13 +3,17 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const $ = (id) => document.getElementById(id);
 const CONFIG_KEY = 'creative-studio-supabase-config-v1';
 const REMOTE_STAMP_KEY = 'creative-studio-last-remote-updated-v1';
+const BACKUP_KEY = 'creative-studio-auto-backups-v1';
+const MAX_BACKUPS = 8;
 let client = null;
 let user = null;
 let pushTimer = null;
+let retryTimer = null;
 let busy = false;
 let dirty = false;
 let pushAgain = false;
 let syncTimer = null;
+let conflict = false;
 let lastRemoteUpdated = localStorage.getItem(REMOTE_STAMP_KEY) || '';
 
 function readConfig(){
@@ -50,6 +54,16 @@ function rememberRemoteStamp(stamp){
   lastRemoteUpdated=stamp;
   localStorage.setItem(REMOTE_STAMP_KEY,stamp);
 }
+function backupNow(reason='auto'){
+  if(!window.CS_APP)return;
+  try{
+    const arr=JSON.parse(localStorage.getItem(BACKUP_KEY)||'[]');
+    arr.unshift({at:new Date().toISOString(),reason,state:window.CS_APP.getState()});
+    localStorage.setItem(BACKUP_KEY,JSON.stringify(arr.slice(0,MAX_BACKUPS)));
+    const el=$('backupStatus');
+    if(el)el.textContent=`端末バックアップ: ${new Date().toLocaleString('ja-JP')}`;
+  }catch(e){console.warn('backup failed',e)}
+}
 function startBackgroundSync(){
   clearInterval(syncTimer);
   syncTimer=setInterval(async()=>{
@@ -76,7 +90,7 @@ async function initClient(){
 async function fetchRemote(){
   return client.from('app_state').select('state,updated_at').eq('user_id',user.id).maybeSingle();
 }
-async function pull({silent=false,onlyIfNewer=false}={}){
+async function pull({silent=false,onlyIfNewer=false,seedIfEmpty=false}={}){
   if(!client||!user){if(!silent)setMsg('先にログインしてください。',true);return false;}
   if(!navigator.onLine){setStatus('offline','オフライン',user.email);return false;}
   if(dirty && onlyIfNewer) return false;
@@ -92,21 +106,37 @@ async function pull({silent=false,onlyIfNewer=false}={}){
       setStatus('online','同期ON',user.email);
       return true;
     }
+    if(dirty) backupNow('before-cloud-pull');
     window.CS_APP.replaceState(data.state);
-    dirty=false;
+    dirty=false; conflict=false;
     rememberRemoteStamp(data.updated_at);
     if(!silent)setMsg('クラウドの最新データを読み込みました。');
+  } else if(seedIfEmpty){
+    if(!silent)setMsg('クラウドが空なので、この端末のデータを初期保存します。');
+    return push({force:true});
   } else if(!silent) setMsg('クラウド側はまだ空です。現在のデータを保存できます。');
   setStatus('online','同期ON',user.email);
   return true;
 }
-async function push(){
+async function push({force=false}={}){
   if(!client||!user||!window.CS_APP)return false;
   if(!navigator.onLine){dirty=true;setStatus('offline','未同期',user.email);return false;}
   if(busy){pushAgain=true;return false;}
   busy=true;
-  clearTimeout(pushTimer);
+  clearTimeout(pushTimer);clearTimeout(retryTimer);
   setStatus('syncing','保存中',user.email);
+
+  if(!force && lastRemoteUpdated){
+    const {data:remote,error:checkError}=await fetchRemote();
+    if(!checkError && remote?.updated_at && remote.updated_at>lastRemoteUpdated){
+      backupNow('sync-conflict-local');
+      conflict=true; busy=false; dirty=true;
+      setStatus('offline','競合あり',user.email);
+      setMsg('別の端末で新しい更新があります。自動上書きを止めました。「クラウドから読み込む」か「今すぐ保存」を選んでください。',true);
+      return false;
+    }
+  }
+
   const stamp=new Date().toISOString();
   const payload={user_id:user.id,state:window.CS_APP.getState(),updated_at:stamp};
   const {data,error}=await client.from('app_state').upsert(payload,{onConflict:'user_id'}).select('updated_at').maybeSingle();
@@ -114,10 +144,11 @@ async function push(){
   if(error){
     console.warn(error);
     dirty=true;
-    setStatus('online','同期エラー',user.email);
+    setStatus(navigator.onLine?'online':'offline','同期エラー',user.email);
+    retryTimer=setTimeout(()=>{ if(user&&dirty&&navigator.onLine) push(); },5000);
     return false;
   }
-  dirty=false;
+  dirty=false; conflict=false;
   rememberRemoteStamp(data?.updated_at || stamp);
   setStatus('online','保存済',user.email);
   if(pushAgain){pushAgain=false;return push();}
@@ -128,7 +159,7 @@ function schedulePush(){
   if(!user){setStatus('offline','ローカル保存');return;}
   clearTimeout(pushTimer);
   setStatus(navigator.onLine?'syncing':'offline',navigator.onLine?'変更あり':'未同期',user.email);
-  pushTimer=setTimeout(push,600);
+  pushTimer=setTimeout(()=>push(),600);
 }
 async function login(){
   if(!configured()){setMsg('先にProject URLとPublishable keyを保存してください。',true);return;}
@@ -143,10 +174,10 @@ async function login(){
   setMsg('ログインしました。クラウドを確認しています…');
   setStatus('online','同期ON',user.email);
   startBackgroundSync();
-  await pull();
+  await pull({seedIfEmpty:true});
 }
 async function logout(){
-  clearInterval(syncTimer);
+  clearInterval(syncTimer);clearTimeout(retryTimer);
   if(client)await client.auth.signOut();
   user=null;
   setStatus('offline','ローカル');
@@ -159,13 +190,13 @@ async function saveConfigFromUI(){
   setMsg('接続情報を保存しました。次にメールとパスワードでログインしてください。');
 }
 
-window.CSCloud={schedulePush,push,pull,isDirty:()=>dirty};
+window.CSCloud={schedulePush,push,pull,backupNow,isDirty:()=>dirty,hasConflict:()=>conflict};
 
 window.addEventListener('online',async()=>{
   if(!user)return;
   setStatus('syncing',dirty?'再接続・保存中':'再接続中',user.email);
   if(dirty) await push();
-  await pull({silent:true,onlyIfNewer:true});
+  else await pull({silent:true,onlyIfNewer:true});
 });
 window.addEventListener('offline',()=>{ if(user)setStatus('offline',dirty?'未同期':'オフライン',user.email); });
 document.addEventListener('visibilitychange',async()=>{
@@ -182,11 +213,13 @@ window.addEventListener('focus',async()=>{
 window.addEventListener('DOMContentLoaded',async()=>{
   fillConfig();
   await initClient();
+  const backups=(()=>{try{return JSON.parse(localStorage.getItem(BACKUP_KEY)||'[]')}catch{return[]}})();
+  if(backups[0]&&$('backupStatus')) $('backupStatus').textContent=`端末バックアップ: ${new Date(backups[0].at).toLocaleString('ja-JP')}`;
   $('cloudFab')?.addEventListener('click',()=>{fillConfig();window.CS_APP?.openModal('cloudModal')});
   $('cloudLoginOpenBtn')?.addEventListener('click',()=>{fillConfig();window.CS_APP?.openModal('cloudModal')});
   $('cloudSaveConfigBtn')?.addEventListener('click',saveConfigFromUI);
   $('cloudLoginBtn')?.addEventListener('click',login);
   $('cloudLogoutBtn')?.addEventListener('click',logout);
   $('cloudPullBtn')?.addEventListener('click',()=>pull());
-  $('cloudPushBtn')?.addEventListener('click',push);
+  $('cloudPushBtn')?.addEventListener('click',()=>push({force:true}));
 });
