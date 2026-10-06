@@ -1,4 +1,4 @@
-CREATIVE STUDIO V8
-- Configurable Today priority rules
-- Notification preferences
-- Timer preferences and safer task switching
+CREATIVE STUDIO V9
+- Project creation wizard: Project → Deliverable → Flow → Tasks
+- Template preview before creation
+- Mobile and desktop new-project entry uses the wizard
