@@ -343,6 +343,52 @@ body{font-family:"Helvetica Neue",Arial,"Noto Sans JP","Hiragino Kaku Gothic Pro
 .project-due-badge{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:6px 9px;font-size:9px;font-weight:950;background:#f3efe7}.project-due-badge.urgent{background:#fff0f2;color:#a32840}.project-due-badge.today{background:#fff6d8;color:#7f6410}.project-due-badge.soon{background:#eef8f2;color:#226a43}
 .new-project-choice{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.choice-card{text-align:left;border:1px solid var(--line);background:#fff;border-radius:14px;padding:18px;min-height:118px;cursor:pointer}.choice-card.primary{background:var(--yellow);border-color:var(--ink)}.choice-card b{display:block;font-size:14px;margin-bottom:8px}.choice-card span{font-size:10px;color:var(--muted);line-height:1.55}.choice-card:hover{transform:translateY(-1px)}
 @media(max-width:780px){.new-project-choice{grid-template-columns:1fr}.waiting-dock-toggle{max-width:100%}.cs-details>summary:after{font-size:9px;min-width:56px}.focus-promote{padding:7px 10px}}
+
+/* =========================================================
+   V15 — HOME focus layout + quieter settings
+   ========================================================= */
+.focus-section{margin-top:26px}
+.focus-section-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px;position:relative}
+.focus-section-head h2{margin:0;font-size:16px;letter-spacing:-.02em}
+.focus-section-head .notice{display:block;margin-top:3px}
+.waiting-inline{margin-top:0}
+.waiting-inline .waiting-dock-panel{position:absolute;right:0;top:calc(100% + 7px);width:min(440px,92vw);z-index:45}
+.focus-task-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px!important;align-items:stretch;padding-top:0!important}
+.focus-task-grid .creative-card-shell{height:100%;margin-top:10px}
+.focus-task-grid .creative-card{height:100%;min-height:280px;grid-template-columns:52px minmax(0,1fr)!important;grid-template-rows:auto 1fr auto;gap:12px 10px!important;padding:22px 16px 16px 14px!important;margin-top:0!important}
+.focus-task-grid .task-index{grid-column:1;grid-row:1/3;padding:4px 0 46px 5px!important}
+.focus-task-grid .task-copy{grid-column:2;grid-row:1/3;padding-left:0}
+.focus-task-grid .task-actions{grid-column:1/-1;grid-row:3;justify-content:flex-start;padding-left:0!important;margin-top:8px}
+.focus-task-grid .task-actions .btn{flex:1;min-width:0}
+.focus-task-grid .task-name{font-size:19px}
+.focus-task-grid .task-detail{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.focus-task-grid .due-corner{width:82px!important;height:66px!important}
+.focus-task-grid .due-corner-inner{left:9px!important;bottom:7px!important}
+.settings-wrap .settings-card.settings-fold{padding:0!important;overflow:hidden}
+.settings-wrap .settings-card.settings-fold>summary{list-style:none;cursor:pointer;padding:15px 17px;font-weight:950;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.settings-wrap .settings-card.settings-fold>summary::-webkit-details-marker{display:none}
+.settings-wrap .settings-card.settings-fold>summary::after{content:'開く ▾';font-size:9px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 8px;background:#fff}
+.settings-wrap .settings-card.settings-fold[open]>summary::after{content:'閉じる ▴';background:var(--ink);border-color:var(--ink);color:#fff}
+.settings-wrap .settings-card.settings-fold>.settings-fold-body{padding:0 17px 17px}
+@media(max-width:1050px) and (min-width:781px){.focus-task-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px!important}.focus-task-grid .creative-card{padding-right:12px!important}.focus-task-grid .task-actions{display:grid;grid-template-columns:1fr}.focus-task-grid .task-name{font-size:17px}}
+@media(max-width:780px){.focus-section-head{align-items:flex-start}.focus-section-head h2{font-size:20px}.waiting-inline .waiting-dock-panel{position:fixed;left:12px;right:12px;top:auto;bottom:84px;width:auto;max-height:48vh;overflow:auto}.focus-task-grid{grid-template-columns:1fr;gap:18px!important}.focus-task-grid .creative-card{min-height:130px;grid-template-columns:70px minmax(0,1fr)!important;grid-template-rows:auto auto;padding:23px 13px 14px 12px!important}.focus-task-grid .task-index{grid-column:1;grid-row:1;padding:4px 0 48px 5px!important}.focus-task-grid .task-copy{grid-column:2;grid-row:1}.focus-task-grid .task-actions{grid-column:1/-1;grid-row:2;padding-left:70px!important}.focus-task-grid .task-actions .btn{flex:0 1 auto}.settings-wrap .settings-card.settings-fold>summary{padding:14px 15px}.settings-wrap .settings-card.settings-fold>.settings-fold-body{padding:0 15px 15px}}
+
+/* V15: the three candidates share one visual weight on every screen. */
+.focus-section-head{justify-content:flex-start;flex-wrap:wrap}
+.focus-task-grid{grid-auto-rows:1fr}
+.focus-task-grid .creative-card,
+.focus-task-grid .creative-card.working{background:var(--paper);outline:0;box-shadow:var(--card-shadow)!important}
+.focus-task-grid .card-shell:hover>.card-surface{box-shadow:var(--card-shadow-hover)!important}
+.focus-task-grid .color-edge::before{background:var(--line)}
+.focus-task-grid .focus-rank{display:block;width:auto;height:auto;margin:0;border:0;border-radius:0;background:transparent;color:var(--muted);font-size:22px;font-weight:950;line-height:1}
+.focus-task-grid .priority{background:#efede7;color:var(--ink);border-color:var(--line);box-shadow:none}
+.focus-task-grid .task-context,.focus-task-grid .task-name{overflow-wrap:anywhere}
+.focus-task-grid .task-actions{align-self:end}
+.focus-task-grid .creative-card-shell{min-width:0}
+@media(max-width:780px){
+  .focus-task-grid .task-index{display:block!important}
+  .focus-task-grid .creative-card{min-height:170px!important}
+}
 </style>
 </head>
 <body>
@@ -372,8 +418,7 @@ body{font-family:"Helvetica Neue",Arial,"Noto Sans JP","Hiragino Kaku Gothic Pro
         <div class="hero-note"><span class="bubble home-message" id="homeBubble">今日もつくろう</span></div>
       </div>
       <div id="reviewPanel"></div>
-      <details class="cs-details" open><summary>今やるべきこと <span class="notice">優先3件・「先にやる」で順番変更</span></summary><div class="cs-details-body"><div id="creativeTasks" class="task-list"></div></div></details>
-      <div id="waitingDock" class="waiting-dock"><button id="waitingDockToggle" class="waiting-dock-toggle" type="button"><span class="waiting-dock-dot"></span><span>確認待ち</span><b id="waitingCount">0</b><span class="waiting-dock-arrow">開く ▾</span></button><div id="waitingDockPanel" class="waiting-dock-panel"><div id="waitingTasks" class="waiting-list compact"></div></div></div>
+      <section class="focus-section"><div class="focus-section-head"><div><h2>今やるべきこと</h2><span class="notice">自動判定の優先3件</span></div><div id="waitingDock" class="waiting-dock waiting-inline"><button id="waitingDockToggle" class="waiting-dock-toggle" type="button"><span class="waiting-dock-dot"></span><span>確認待ち</span><b id="waitingCount">0</b><span class="waiting-dock-arrow">開く ▾</span></button><div id="waitingDockPanel" class="waiting-dock-panel"><div id="waitingTasks" class="waiting-list compact"></div></div></div></div><div id="creativeTasks" class="task-list focus-task-grid"></div></section>
       <details class="cs-details"><summary>QUICK TASKS <span class="notice">制作達成数には含めません</span></summary><div class="cs-details-body"><div id="quickTasks" class="quick-list"></div><div class="quick-add"><input id="qText" class="qtext" placeholder="タスクをすぐ追加…"><input id="qDue" type="date"><select id="qRepeat"><option value="">繰り返しなし</option><option>毎日</option><option>毎週</option><option>月</option><option>火</option><option>水</option><option>木</option><option>金</option><option>土</option><option>日</option><option>毎月</option></select><button class="btn small primary" id="quickAddBtn">＋ ADD</button></div></div></details>
     </section>
 
@@ -666,13 +711,12 @@ function syncAchievementPhysics(pop=false){const raw=monthAchievementCount(),tar
   achievementPhysics.lastRaw=raw;achievementPhysics.lastTarget=target;if(!achievementPhysics.bodies.length&&target)resetAchievementPhysics(target,false);else drawAchievementPhysics()}
 window.addEventListener('resize',()=>{const changed=resizeAchievementCanvas();if(changed&&achievementPhysics.lastTarget>=0)resetAchievementPhysics(achievementPhysics.lastTarget,false)});
 
-function creativeTaskCard(x,rank=0){const run=isRunning(x.p.id,x.di,x.ti),key=creativeTaskKey(x);return `<article class="creative-card-shell card-shell ${run?'working-shell':''}" style="--project:${x.p.color}" data-openproject="${x.p.id}" data-opendeliv="${x.di}"><span class="bubble why bubble-center" data-why="${x.p.id}|${x.di}">${esc(autoWhy(x.p,x.d,x.due,run))}</span><div class="creative-card card card-surface color-edge ${run?'working':''}" style="--project:${x.p.color}"><div class="due-corner"><div class="due-corner-inner"><small>${t('due')}</small><b>${x.due.date}</b><em>${esc(x.due.left)}</em></div></div><div class="task-index"><span class="focus-rank">${rank||''}</span></div><div class="task-copy"><div class="task-client">${esc(x.p.client)}</div><div class="task-context">${esc(x.p.name)} ／ ${esc(x.d.name)}</div><div class="task-name">${esc(x.d.steps[x.ti])}</div><div class="task-detail">${esc(x.m.detail||(state.language==='en'?'Next creative task for this deliverable':'この制作物で、今進めるタスク'))}</div><span class="priority ${priorityClass(x.p.priority)}">${t('priority')} ${esc(priorityLabel(x.p.priority))}</span>${run?`<div class="working-flag">● ${t('working')}</div>`:''}</div><div class="task-actions">${rank>1?`<button class="focus-promote" data-focus-promote="${key}">↑ 先にやる</button>`:''}<button class="btn small ghost" data-prev="${x.p.id}|${x.di}">← ${t('undo')}</button><button class="btn small" data-start="${x.p.id}|${x.di}|${x.ti}">${run?'● '+t('working'):'▶ '+t('start')}</button><button class="btn small primary" data-complete="${x.p.id}|${x.di}">✓ ${t('complete')}</button></div></div></article>`}
+function creativeTaskCard(x,rank=0){const run=isRunning(x.p.id,x.di,x.ti),key=creativeTaskKey(x);return `<article class="creative-card-shell card-shell ${run?'working-shell':''}" style="--project:${x.p.color}" data-openproject="${x.p.id}" data-opendeliv="${x.di}"><span class="bubble why bubble-center" data-why="${x.p.id}|${x.di}">${esc(autoWhy(x.p,x.d,x.due,run))}</span><div class="creative-card card card-surface color-edge ${run?'working':''}" style="--project:${x.p.color}"><div class="due-corner"><div class="due-corner-inner"><small>${t('due')}</small><b>${x.due.date}</b><em>${esc(x.due.left)}</em></div></div><div class="task-index"><span class="focus-rank">${rank||''}</span></div><div class="task-copy"><div class="task-client">${esc(x.p.client)}</div><div class="task-context">${esc(x.p.name)} ／ ${esc(x.d.name)}</div><div class="task-name">${esc(x.d.steps[x.ti])}</div><div class="task-detail">${esc(x.m.detail||(state.language==='en'?'Next creative task for this deliverable':'この制作物で、今進めるタスク'))}</div><span class="priority ${priorityClass(x.p.priority)}">${t('priority')} ${esc(priorityLabel(x.p.priority))}</span>${run?`<div class="working-flag">● ${t('working')}</div>`:''}</div><div class="task-actions"><button class="btn small ghost" data-prev="${x.p.id}|${x.di}">← ${t('undo')}</button><button class="btn small" data-start="${x.p.id}|${x.di}|${x.ti}">${run?'● '+t('working'):'▶ '+t('start')}</button><button class="btn small primary" data-complete="${x.p.id}|${x.di}">✓ ${t('complete')}</button></div></div></article>`}
 
 function waitingCreativeTasks(){return visibleCreativeTasks().filter(x=>x.d.status==='確認待ち')}
 function actionableCreativeTasks(){return visibleCreativeTasks().filter(x=>x.d.status!=='確認待ち')}
 function creativeTaskKey(x){return `${x.p.id}|${x.di}|${x.ti}`}
-function focusCreativeTasks(){const base=actionableCreativeTasks(),valid=new Set(base.map(creativeTaskKey));state.preferences.focusOrder=(state.preferences.focusOrder||[]).filter(k=>valid.has(k));const rank=new Map(state.preferences.focusOrder.map((k,i)=>[k,i]));return [...base].sort((a,b)=>{const ak=creativeTaskKey(a),bk=creativeTaskKey(b),ar=rank.has(ak)?rank.get(ak):9999,br=rank.has(bk)?rank.get(bk):9999;if(ar!==br)return ar-br;return compareCreativeTasks(a,b)}).slice(0,3)}
-function promoteFocusTask(key){const a=(state.preferences.focusOrder||[]).filter(k=>k!==key);a.unshift(key);state.preferences.focusOrder=a;save();renderHome()}
+function focusCreativeTasks(){return [...actionableCreativeTasks()].sort(compareCreativeTasks).slice(0,3)}
 
 function renderWaitingTasks(){const el=$('waitingTasks'),dock=$('waitingDock'),count=$('waitingCount');if(!el)return;const list=waitingCreativeTasks();if(count)count.textContent=String(list.length);if(dock&&list.length===0)dock.classList.remove('open');el.innerHTML=list.length?list.map(x=>`<article class="waiting-card" style="--project:${x.p.color}" data-openproject="${x.p.id}" data-opendeliv="${x.di}"><span class="waiting-bar"></span><div><b>${esc(x.p.name)} / ${esc(x.d.name)}</b><span>${esc(x.d.steps[x.ti]||'確認待ち')} · ${esc(x.p.client)}</span></div><button class="btn small" data-status="${x.p.id}|${x.di}">状態変更</button></article>`).join(''):'<div class="empty">確認待ちはありません。</div>'}
 function reviewDueInfo(){const r=state.preferences.review||{intervalDays:7,lookbackDays:7,lastReviewedAt:null},now=Date.now();if(!r.lastReviewedAt)return{due:true,days:0,label:'まだ振り返りをしていません'};const last=new Date(r.lastReviewedAt).getTime(),next=last+r.intervalDays*86400000,d=Math.ceil((next-now)/86400000);return{due:d<=0,days:d,label:d<=0?'振り返りのタイミングです':`次の振り返りまで あと${d}日`}}
@@ -819,11 +863,12 @@ function toggleRule(rule){const e=state.preferences.taskRules.enabled;e[rule]=e[
 function bindPreferenceControls(){const n=state.preferences.notifications,t=state.preferences.timer;const setC=(id,v)=>{const e=$(id);if(e)e.checked=!!v};setC('notifyOverdue',n.overdue);setC('notifyToday',n.today);setC('notifyTomorrow',n.tomorrow);setC('notifyLongWork',n.longWork);setC('timerConfirmSwitch',t.confirmSwitch);setC('timerCompleteStops',t.completeStops);setC('timerRestReminder',t.restReminder);if($('timerLongMinutes'))$('timerLongMinutes').value=String(t.longMinutes||90)}
 function savePreferenceControls(){const n=state.preferences.notifications,t=state.preferences.timer;n.overdue=$('notifyOverdue')?.checked!==false;n.today=$('notifyToday')?.checked!==false;n.tomorrow=$('notifyTomorrow')?.checked!==false;n.longWork=$('notifyLongWork')?.checked!==false;t.confirmSwitch=$('timerConfirmSwitch')?.checked!==false;t.completeStops=$('timerCompleteStops')?.checked!==false;t.restReminder=$('timerRestReminder')?.checked!==false;t.longMinutes=Number($('timerLongMinutes')?.value||90);save();renderHome()}
 function renderSettings(){$('workspaceInput').value=state.workspace;$('languageSelect').value=state.language;applyStaticI18n();$('trashList').innerHTML=state.trash.length?state.trash.map(p=>`<div class="row" style="padding:7px 0;border-top:1px solid #eee"><span>${esc(p.name)} / ${esc(p.client)}</span><button class="btn small" data-restore="${p.id}">${t('restore')}</button></div>`).join(''):(state.language==='en'?'Trash is empty.':'TRASHは空です。');renderTaskRuleSettings();bindPreferenceControls();if($('reviewIntervalDays'))$('reviewIntervalDays').value=state.preferences.review.intervalDays;if($('reviewLookbackDays'))$('reviewLookbackDays').value=state.preferences.review.lookbackDays;const ri=reviewDueInfo();if($('reviewSettingsStatus'))$('reviewSettingsStatus').textContent=ri.label;updateNotificationUI()}
+function initSettingsFolds(){const wrap=document.querySelector('#settings .settings-wrap');if(!wrap||wrap.dataset.foldReady)return;wrap.dataset.foldReady='1';[...wrap.children].forEach((card,i)=>{if(!card.classList.contains('settings-card'))return;const d=document.createElement('details');d.className='settings-card settings-fold';let title='設定';const firstB=card.querySelector(':scope > b');const firstLabel=card.querySelector(':scope > label');if(firstB)title=firstB.textContent.trim();else if(firstLabel)title=(firstLabel.textContent||'設定').trim().split(/\n/)[0].trim()||'設定';if(i===0)title='ワークスペース';else if(i===1)title='言語';const summary=document.createElement('summary');summary.textContent=title;const body=document.createElement('div');body.className='settings-fold-body';while(card.firstChild){const n=card.firstChild;if(n===firstB){card.removeChild(n);continue}body.appendChild(n)}d.append(summary,body);card.replaceWith(d)});}
 function saveWorkspace(){state.workspace=$('workspaceInput').value.trim()||'CREATIVE STUDIO';save();renderHome();renderSettings()}
 function exportJSON(){const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`creative-studio-backup-${todayISO()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
 async function importJSONFile(file){if(!file)return;try{const raw=JSON.parse(await file.text());const next=normalizeState(raw);if(!confirm('このJSONの内容で現在のデータを置き換えますか？'))return;if(window.CSCloud?.backupNow)window.CSCloud.backupNow('before-import');state=next;currentProject=state.projects[0]?.id||null;currentDeliverable=0;save();renderAll();go('home');if($('backupStatus'))$('backupStatus').textContent='JSONを読み込みました。自動同期でクラウドにも保存されます。'}catch(e){alert('JSONを読み込めませんでした。CREATIVE STUDIOのバックアップファイルか確認してください。')}}
 function resetDemo(){if(!confirm('このブラウザのデータをデモ状態へ戻しますか？'))return;if(window.CSCloud?.backupNow)window.CSCloud.backupNow('before-reset');state=seedState();save();currentProject=state.projects[0].id;currentDeliverable=0;renderAll();go('home')}
-function renderAll(){applyStaticI18n();renderHome();renderProjects();renderCalendar();renderTemplates();renderArchive();renderSettings()}
+function renderAll(){initSettingsFolds();applyStaticI18n();renderHome();renderProjects();renderCalendar();renderTemplates();renderArchive();renderSettings()}
 function renderAllVisible(pop=false){const active=document.querySelector('.page.active')?.id;renderHome(pop);renderProjects();renderFocus();if(active==='detail')renderDetail();if(active==='calendar')renderCalendar();if(active==='archive')renderArchive();if(active==='settings')renderSettings()}
 
 function saveFile(pid,di=null){const p=projectById(pid);if(!p)return;const link={name:$('fName').value.trim()||'LINK',service:$('fService').value.trim(),url:$('fUrl').value.trim()};if(di===null)p.links.push(link);else p.deliverables[di]?.links.push(link);save();closeModal('fileModal');renderDetail()}
@@ -865,7 +910,6 @@ document.addEventListener('click',e=>{
   const rup=e.target.closest('[data-rule-up]');if(rup){moveRule(rup.dataset.ruleUp,-1);return}
   const rdown=e.target.closest('[data-rule-down]');if(rdown){moveRule(rdown.dataset.ruleDown,1);return}
   const rtog=e.target.closest('[data-rule-toggle]');if(rtog){toggleRule(rtog.dataset.ruleToggle);return}
-  const fp=e.target.closest('[data-focus-promote]');if(fp){e.stopPropagation();promoteFocusTask(fp.dataset.focusPromote);return}
   if(e.target.id==='statusMenu'||e.target.closest('#statusMenu'))return;$('statusMenu').style.display='none';
 });
 document.addEventListener('dragstart',e=>{const ri=e.target.closest('[data-rule]');if(ri){draggedRule=ri.dataset.rule;ri.classList.add('dragging');e.dataTransfer.effectAllowed='move';return}const step=e.target.closest('[data-step]');if(step){draggedStep=Number(step.dataset.step);e.dataTransfer.effectAllowed='move';return}const bar=e.target.closest('[data-dragschedule]');if(bar){e.dataTransfer.setData('text/plain',bar.dataset.dragschedule);e.dataTransfer.effectAllowed='move'}});
